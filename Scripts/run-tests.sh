@@ -8,7 +8,7 @@
 set -uo pipefail
 cd "$(dirname "$0")/.." || exit 1
 
-BIN="${TMPDIR:-/tmp}/tinycast-harness"
+BIN="${TMPDIR:-/tmp}/ttyl-harness"
 mkdir -p "$BIN"
 
 failed=()
@@ -19,7 +19,7 @@ only="${1:-}"
 # xcodebuild never compiles the harnesses, so without this nothing in Tests/ resolves in an editor.
 # The source lists below are the only copy, which is why this lives here rather than in its own script.
 emit_db=0
-DB="${TMPDIR:-/tmp}/tinycast-compile-db.json"
+DB="${TMPDIR:-/tmp}/ttyl-compile-db.json"
 if [ "$only" = "--index" ]; then
     emit_db=1
     only=""
@@ -62,69 +62,69 @@ run() {
     printf '\033[32mok\033[0m    %-22s\n' "$name"
 }
 
-L=Tinycast/Features/Launcher/Model
+L=ttyl/Features/Launcher/Model
 run fuzz-test              $L/SearchRelevance.swift
 run file-search-test       $L/SearchRelevance.swift \
-                           Tinycast/Features/FileSearch/Model/*.swift
-run file-search-session-test Tinycast/Platform/Signposts.swift \
+                           ttyl/Features/FileSearch/Model/*.swift
+run file-search-session-test ttyl/Platform/Signposts.swift \
                              $L/SearchRelevance.swift \
-                             Tinycast/Features/FileSearch/Model/*.swift \
-                             Tinycast/Features/FileSearch/Service/*.swift
+                             ttyl/Features/FileSearch/Model/*.swift \
+                             ttyl/Features/FileSearch/Service/*.swift
 run ranking-test           $L/SearchRelevance.swift $L/LauncherRankingStore.swift
 run scopes-test            $L/SearchScopes.swift
-run calc-test              Tinycast/Features/Calculator/Model/*.swift
-run clipboard-test         Tinycast/Features/Clipboard/Model/ClipboardStore.swift \
-                           Tinycast/Features/Clipboard/Model/ClipboardFilter.swift
-run emoji-test             Tinycast/Features/Emoji/Model/EmojiCatalog.swift \
-                           Tinycast/Features/Emoji/Model/EmojiGridGeometry.swift \
-                           Tinycast/Features/Emoji/Model/EmojiData.generated.swift
-run palette-selection-test Tinycast/Features/PaletteRowIndex.swift \
-                           Tinycast/Features/Emoji/Model/EmojiGridGeometry.swift
-run palette-placement-test Tinycast/DesignSystem/Theme.swift \
-                           Tinycast/Palette/PalettePlacement.swift
-run scroll-reveal-test     Tinycast/DesignSystem/Scrolling/SelectionReveal.swift
-run hover-arming-test      Tinycast/Palette/HoverArming.swift \
-                           Tinycast/Palette/PaletteState.swift \
-                           Tinycast/Palette/PaletteMode.swift \
-                           Tinycast/Features/Clipboard/Model/ClipboardStore.swift \
-                           Tinycast/Features/Clipboard/Model/ClipboardFilter.swift \
-                           Tinycast/Features/Quicklinks/Model/Quicklink.swift
-run hotkey-test            Tinycast/Features/HotKeys/Model/DoubleTapModifier.swift \
-                           Tinycast/Features/HotKeys/Model/DoubleTapDetector.swift \
-                           Tinycast/Features/HotKeys/Model/HyperKey.swift \
-                           Tinycast/Features/HotKeys/Service/KeyShortcut.swift
-run callout-test           Tinycast/DesignSystem/Theme.swift \
-                           Tinycast/Features/HotKeys/UI/CalloutPlacement.swift
-run icon-cache-test        Tinycast/Platform/Images/IconCache.swift
-run system-action-test     Tinycast/Features/SystemActions/Model/SystemAction.swift
-run volume-test            Tinycast/Features/SystemActions/Model/VolumeLevel.swift
-run window-command-test    Tinycast/Features/WindowManagement/WindowCommand.swift \
-                           Tinycast/Features/WindowManagement/WindowLayout.swift \
-                           Tinycast/Features/WindowManagement/WindowActionMemory.swift
-run custom-command-test    Tinycast/Features/CustomCommands/Model/CustomCommand.swift \
-                           Tinycast/Features/CustomCommands/Service/ShellCommandRunner.swift
-run uninstall-test         Tinycast/Features/Uninstall/Model/UninstallTarget.swift \
-                           Tinycast/Features/Uninstall/Model/UninstallSearchRoot.swift \
-                           Tinycast/Features/Uninstall/Model/UninstallRules.swift \
-                           Tinycast/Features/Uninstall/Model/UninstallProtection.swift \
-                           Tinycast/Features/Uninstall/Model/UninstallPlan.swift
-run quicklink-test         Tinycast/Features/Quicklinks/Model/Quicklink.swift \
-                           Tinycast/Features/Quicklinks/Model/QuicklinkDestination.swift \
-                           Tinycast/Features/Quicklinks/Model/QuicklinkStore.swift \
-                           Tinycast/Features/Quicklinks/Model/QuicklinkArchive.swift
-run snippets-test          Tinycast/Platform/NotificationToken.swift \
-                           Tinycast/Platform/HealthTicker.swift \
-                           Tinycast/Features/Snippets/Model/*.swift \
-                           Tinycast/Features/Snippets/Service/*.swift
-run raycast-test           Tinycast/Features/Backup/Model/RaycastFormat.swift \
-                           Tinycast/Features/Backup/Model/RaycastV1Decoder.swift \
-                           Tinycast/Features/Backup/Service/Gunzip.swift \
-                           Tinycast/Features/Clipboard/Model/ClipboardStore.swift \
-                           Tinycast/Features/Clipboard/Model/ClipboardFilter.swift
-run settings-backup-test   Tinycast/Features/Settings/AppSettingsKey.swift \
-                           Tinycast/Features/Backup/Model/SettingsBackupCoverage.swift
-run settings-history-test  Tinycast/Features/Settings/SettingsTab.swift \
-                           Tinycast/Features/Settings/SettingsHistory.swift
+run calc-test              ttyl/Features/Calculator/Model/*.swift
+run clipboard-test         ttyl/Features/Clipboard/Model/ClipboardStore.swift \
+                           ttyl/Features/Clipboard/Model/ClipboardFilter.swift
+run emoji-test             ttyl/Features/Emoji/Model/EmojiCatalog.swift \
+                           ttyl/Features/Emoji/Model/EmojiGridGeometry.swift \
+                           ttyl/Features/Emoji/Model/EmojiData.generated.swift
+run palette-selection-test ttyl/Features/PaletteRowIndex.swift \
+                           ttyl/Features/Emoji/Model/EmojiGridGeometry.swift
+run palette-placement-test ttyl/DesignSystem/Theme.swift \
+                           ttyl/Palette/PalettePlacement.swift
+run scroll-reveal-test     ttyl/DesignSystem/Scrolling/SelectionReveal.swift
+run hover-arming-test      ttyl/Palette/HoverArming.swift \
+                           ttyl/Palette/PaletteState.swift \
+                           ttyl/Palette/PaletteMode.swift \
+                           ttyl/Features/Clipboard/Model/ClipboardStore.swift \
+                           ttyl/Features/Clipboard/Model/ClipboardFilter.swift \
+                           ttyl/Features/Quicklinks/Model/Quicklink.swift
+run hotkey-test            ttyl/Features/HotKeys/Model/DoubleTapModifier.swift \
+                           ttyl/Features/HotKeys/Model/DoubleTapDetector.swift \
+                           ttyl/Features/HotKeys/Model/HyperKey.swift \
+                           ttyl/Features/HotKeys/Service/KeyShortcut.swift
+run callout-test           ttyl/DesignSystem/Theme.swift \
+                           ttyl/Features/HotKeys/UI/CalloutPlacement.swift
+run icon-cache-test        ttyl/Platform/Images/IconCache.swift
+run system-action-test     ttyl/Features/SystemActions/Model/SystemAction.swift
+run volume-test            ttyl/Features/SystemActions/Model/VolumeLevel.swift
+run window-command-test    ttyl/Features/WindowManagement/WindowCommand.swift \
+                           ttyl/Features/WindowManagement/WindowLayout.swift \
+                           ttyl/Features/WindowManagement/WindowActionMemory.swift
+run custom-command-test    ttyl/Features/CustomCommands/Model/CustomCommand.swift \
+                           ttyl/Features/CustomCommands/Service/ShellCommandRunner.swift
+run uninstall-test         ttyl/Features/Uninstall/Model/UninstallTarget.swift \
+                           ttyl/Features/Uninstall/Model/UninstallSearchRoot.swift \
+                           ttyl/Features/Uninstall/Model/UninstallRules.swift \
+                           ttyl/Features/Uninstall/Model/UninstallProtection.swift \
+                           ttyl/Features/Uninstall/Model/UninstallPlan.swift
+run quicklink-test         ttyl/Features/Quicklinks/Model/Quicklink.swift \
+                           ttyl/Features/Quicklinks/Model/QuicklinkDestination.swift \
+                           ttyl/Features/Quicklinks/Model/QuicklinkStore.swift \
+                           ttyl/Features/Quicklinks/Model/QuicklinkArchive.swift
+run snippets-test          ttyl/Platform/NotificationToken.swift \
+                           ttyl/Platform/HealthTicker.swift \
+                           ttyl/Features/Snippets/Model/*.swift \
+                           ttyl/Features/Snippets/Service/*.swift
+run raycast-test           ttyl/Features/Backup/Model/RaycastFormat.swift \
+                           ttyl/Features/Backup/Model/RaycastV1Decoder.swift \
+                           ttyl/Features/Backup/Service/Gunzip.swift \
+                           ttyl/Features/Clipboard/Model/ClipboardStore.swift \
+                           ttyl/Features/Clipboard/Model/ClipboardFilter.swift
+run settings-backup-test   ttyl/Features/Settings/AppSettingsKey.swift \
+                           ttyl/Features/Backup/Model/SettingsBackupCoverage.swift
+run settings-history-test  ttyl/Features/Settings/SettingsTab.swift \
+                           ttyl/Features/Settings/SettingsHistory.swift
 
 if [ "$emit_db" -eq 1 ]; then
     printf ']\n' >> "$DB"

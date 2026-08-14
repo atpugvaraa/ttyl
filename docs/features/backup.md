@@ -1,6 +1,6 @@
 # Backup
 
-Export and import of Tinycast's own settings, plus the entry point for importing a Raycast export. The
+Export and import of ttyl's own settings, plus the entry point for importing a Raycast export. The
 feature lives in `Features/Backup/`.
 
 ## Invariants
@@ -27,7 +27,7 @@ feature lives in `Features/Backup/`.
 | `Model/SettingsBackupCoverage.swift` | The coverage declaration the harness checks |
 | `Model/RaycastFormat.swift` | Detects v1 vs v2 — the only branch between the two |
 | `Model/RaycastV1Decoder.swift` | v1 decrypt and decode |
-| `Model/RaycastImportV1.swift` | v1 → Tinycast field mapping and validation |
+| `Model/RaycastImportV1.swift` | v1 → ttyl field mapping and validation |
 | `Model/RaycastImport.swift` | The shared `Result` both formats meet at |
 | `Service/RaycastImportV2.swift` | v2 decrypt, decode and mapping |
 | `Service/Scrypt.swift`, `Service/Gunzip.swift` | The crypto and decompression primitives |

@@ -112,7 +112,7 @@ Two details carry their weight:
   original frame, because rule 1 captures once and the intermediate actions never overwrite it. A stack
   has no defensible answer for what a _second_ Restore press should do.
 
-Rule 1 also delivers the "works for windows Tinycast never moved" requirement: the capture happens in
+Rule 1 also delivers the "works for windows ttyl never moved" requirement: the capture happens in
 `WindowMover.perform` before a single write.
 
 **Cycling covers the four halves only** (½ → ⅓ → ⅔), and is off by default. Top and Bottom Half cycle
@@ -206,4 +206,4 @@ has no automated coverage — the AX paths need manual verification, particularl
    the secondary display, then round-trip Next/Previous Display.
 3. Toggle Fullscreen on a window that accepts it and one that refuses it.
 4. Cycling: three presses of Left Half, then drag the window and confirm the next press restarts at ½.
-5. Restore on a window Tinycast has never moved.
+5. Restore on a window ttyl has never moved.

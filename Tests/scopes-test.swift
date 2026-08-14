@@ -5,7 +5,7 @@ struct ScopesTest {
     static func main() {
         let fm = FileManager.default
         let root = fm.temporaryDirectory
-            .appendingPathComponent("tinycast-scopes-\(UUID().uuidString)")
+            .appendingPathComponent("ttyl-scopes-\(UUID().uuidString)")
         defer { try? fm.removeItem(at: root) }
 
         var failures = 0

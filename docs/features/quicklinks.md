@@ -51,7 +51,7 @@ before the placeholders are resolved.
 
 ## Placeholders
 
-Quicklinks reuse Tinycast's one template engine — the same
+Quicklinks reuse ttyl's one template engine — the same
 [`SnippetTemplateEngine`](snippets.md#template-tokens) snippets use, so every token and every modifier
 is available and there is no second parser to keep in sync. `{cursor}` and `{snippet:…}` are text
 concerns with nothing to resolve against in a destination, so they are left literal.
@@ -116,7 +116,7 @@ frontmost tab; that is what "prefer existing tabs" means, so it is the same swit
 second one.
 
 Every failure — unresolvable link, missing file, missing app, refused open — reports through
-Tinycast's own dialog and leaves no partial state.
+ttyl's own dialog and leaves no partial state.
 
 ## Search and pinning
 

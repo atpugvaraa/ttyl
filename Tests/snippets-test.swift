@@ -65,7 +65,7 @@ struct SnippetsTests {
             "Raycast import trims keywords and normalizes blanks",
             imported[0].keyword == "!email" && imported[2].keyword == nil)
         check(
-            "Raycast import uses safe Tinycast defaults",
+            "Raycast import uses safe ttyl defaults",
             imported.allSatisfy { $0.isEnabled && !$0.showsConfirmation })
     }
 
@@ -186,20 +186,20 @@ struct SnippetsTests {
     private static func testRepositoryStorage() throws {
         let fm = FileManager.default
         let root = fm.temporaryDirectory.appendingPathComponent(
-            "tinycast-snippets-tests-\(UUID().uuidString)",
+            "ttyl-snippets-tests-\(UUID().uuidString)",
             isDirectory: true)
         try fm.createDirectory(at: root, withIntermediateDirectories: true)
         defer { try? fm.removeItem(at: root) }
 
         let channelRoot = root.appendingPathComponent("channels", isDirectory: true)
         let stable = SnippetRepository(
-            bundleIdentifier: "com.tinycast.app",
+            bundleIdentifier: "aaravgupta.ttyl",
             applicationSupportRoot: channelRoot)
         let beta = SnippetRepository(
-            bundleIdentifier: "com.tinycast.app.beta",
+            bundleIdentifier: "aaravgupta.ttyl.beta",
             applicationSupportRoot: channelRoot)
         let dev = SnippetRepository(
-            bundleIdentifier: "com.tinycast.app.dev",
+            bundleIdentifier: "aaravgupta.ttyl.dev",
             applicationSupportRoot: channelRoot)
 
         check(
@@ -372,7 +372,7 @@ struct SnippetsTests {
     private static func testRepositoryConcurrency() async throws {
         let fm = FileManager.default
         let root = fm.temporaryDirectory.appendingPathComponent(
-            "tinycast-snippets-concurrency-\(UUID().uuidString)",
+            "ttyl-snippets-concurrency-\(UUID().uuidString)",
             isDirectory: true)
         try fm.createDirectory(at: root, withIntermediateDirectories: true)
         defer { try? fm.removeItem(at: root) }
@@ -529,7 +529,7 @@ struct SnippetsTests {
                 try? Data(text.utf8).write(to: fileURL, options: .atomic)
             }))
         var boundaryEdit = boundaryRecord.snippet
-        boundaryEdit.text = "Tinycast edit"
+        boundaryEdit.text = "ttyl edit"
         do {
             _ = try racingRepository.save(
                 boundaryEdit,
@@ -617,7 +617,7 @@ struct SnippetsTests {
                 readStateAfterPaste: true))
 
         let backingPasteboard = NSPasteboard(
-            name: .init("tinycast-snippets-tests-\(UUID().uuidString)"))
+            name: .init("ttyl-snippets-tests-\(UUID().uuidString)"))
         let pasteboard = CountingPasteboard(backing: backingPasteboard)
         defer { backingPasteboard.releaseGlobally() }
         let customType = NSPasteboard.PasteboardType("com.example.custom")
@@ -707,7 +707,7 @@ struct SnippetsTests {
     private static func testStoreWatcher() async throws {
         let fm = FileManager.default
         let root = fm.temporaryDirectory.appendingPathComponent(
-            "tinycast-snippets-watcher-\(UUID().uuidString)",
+            "ttyl-snippets-watcher-\(UUID().uuidString)",
             isDirectory: true)
         defer { try? fm.removeItem(at: root) }
         let repository = SnippetRepository(
@@ -1130,7 +1130,7 @@ struct SnippetsTests {
             expand("{argument name=\"Tone\" options=\", \"}").text
                 == "{argument name=\"Tone\" options=\", \"}")
 
-        // Raycast's snippet spelling resolves like Tinycast's.
+        // Raycast's snippet spelling resolves like ttyl's.
         let child = record("/tmp/ph-child.md", Snippet(name: "Child", text: "nested"))
         let byName = record("/tmp/ph-name.md", Snippet(name: "ByName", text: "{snippet name=\"Child\"}"))
         let byColon = record("/tmp/ph-colon.md", Snippet(name: "ByColon", text: "{snippet:Child}"))
@@ -1321,7 +1321,7 @@ struct SnippetsTests {
             hasCommandOrControl: false,
             isResetKey: false,
             isDeleteBackward: false)
-        check("synthetic Tinycast events are classified as ignored", syntheticInput == .ignored)
+        check("synthetic ttyl events are classified as ignored", syntheticInput == .ignored)
         _ = policy.process(.text("!du"), at: base.addingTimeInterval(2))
         _ = policy.process(syntheticInput, at: base.addingTimeInterval(2.5))
         let afterSynthetic = policy.process(.text("p"), at: base.addingTimeInterval(3))
@@ -1670,9 +1670,9 @@ private final class CountingPasteboard: SnippetPasteboardAccess {
 
 @MainActor
 final class ClipboardManager {
-    static let internalType = NSPasteboard.PasteboardType("com.tinycast.internal")
-    func prepareForTinycastPasteboardMutation() {}
-    func synchronizeAfterTinycastPasteboardMutation(changeCount: Int) {}
+    static let internalType = NSPasteboard.PasteboardType("aaravgupta.ttyl.internal")
+    func prepareForTtylPasteboardMutation() {}
+    func synchronizeAfterTtylPasteboardMutation(changeCount: Int) {}
 }
 
 @MainActor
@@ -1686,7 +1686,7 @@ enum Permissions {
 }
 
 enum Paster {
-    static let tinycastEventTag: Int64 = 0x54494E59
+    static let ttylEventTag: Int64 = 0x5454_594C
     @MainActor static func postCommandV(toPid pid: pid_t? = nil) {}
 }
 

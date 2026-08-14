@@ -1,0 +1,48 @@
+{
+  "fill" : {
+    "solid" : "display-p3:0.12549,0.14118,0.18824,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill" : "none",
+          "image-name" : "Hand.svg",
+          "name" : "Hand",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              250.00000217188108,
+              -144.4999414986005
+            ]
+          }
+        },
+        {
+          "image-name" : "Ghostty.svg",
+          "name" : "Ghostty",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -150,
+              -0.007544889183691339
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}

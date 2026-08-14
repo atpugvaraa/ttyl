@@ -1,4 +1,4 @@
-// Tinycast vs Raycast, in one honest table. `true`/`false` render as a check or
+// ttyl vs Raycast, in one honest table. `true`/`false` render as a check or
 // a muted cross; a string renders as-is. The essentials come first (both apps do
 // them), then the differences that actually decide it. Every value here is
 // sourced — the native/memory rows come from Raycast's own engineering blog
@@ -8,41 +8,41 @@ export type Cell = boolean | string;
 
 export type CompareRow = {
   label: string;
-  tinycast: Cell;
+  ttyl: Cell;
   raycast: Cell;
   // `sourced` rows get a † marker tying them to the footnote citation.
   sourced?: boolean;
 };
 
 export const compareRows: CompareRow[] = [
-  { label: "App launcher", tinycast: true, raycast: true },
-  { label: "Clipboard history", tinycast: true, raycast: true },
-  { label: "Calculator, unit & currency conversion", tinycast: true, raycast: true },
-  { label: "Emoji & symbol picker", tinycast: true, raycast: true },
-  { label: "Global & per-app hotkeys", tinycast: true, raycast: true },
-  { label: "Hyper key", tinycast: true, raycast: true },
+  { label: "App launcher", ttyl: true, raycast: true },
+  { label: "Clipboard history", ttyl: true, raycast: true },
+  { label: "Calculator, unit & currency conversion", ttyl: true, raycast: true },
+  { label: "Emoji & symbol picker", ttyl: true, raycast: true },
+  { label: "Global & per-app hotkeys", ttyl: true, raycast: true },
+  { label: "Hyper key", ttyl: true, raycast: true },
   {
     label: "Unlimited clipboard history",
-    tinycast: true,
+    ttyl: true,
     raycast: "Pro only",
   },
   {
     label: "Built with",
-    tinycast: "Native SwiftUI + AppKit",
+    ttyl: "Native SwiftUI + AppKit",
     raycast: "React WebView + Node + Rust",
     sourced: true,
   },
   {
     label: "Memory footprint",
-    tinycast: "<100 MB",
+    ttyl: "<100 MB",
     raycast: "500 MB+",
     sourced: true,
   },
-  { label: "On disk", tinycast: "<3 MB", raycast: "Hundreds of MB" },
-  { label: "Price", tinycast: "Free forever", raycast: "Freemium (Pro)" },
-  { label: "Open source", tinycast: true, raycast: false },
-  { label: "Account required", tinycast: false, raycast: true },
-  { label: "Telemetry", tinycast: "None", raycast: "Yes" },
+  { label: "On disk", ttyl: "<3 MB", raycast: "Hundreds of MB" },
+  { label: "Price", ttyl: "Free forever", raycast: "Freemium (Pro)" },
+  { label: "Open source", ttyl: true, raycast: false },
+  { label: "Account required", ttyl: false, raycast: true },
+  { label: "Telemetry", ttyl: "None", raycast: "Yes" },
 ];
 
 // The one external claim on the page — Raycast's stack and memory numbers come

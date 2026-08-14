@@ -1,6 +1,6 @@
 # Raycast import
 
-Tinycast reads both `.rayconfig` formats in the wild. They come from different generations of a
+ttyl reads both `.rayconfig` formats in the wild. They come from different generations of a
 rewritten app and share almost no data shape, so each has its own decrypt and its own mapper:
 
 |          | v1                                                     | v2                                               |
@@ -47,14 +47,14 @@ roughly 1 in 256 unpads cleanly by chance.
 
 Raycast encrypts even when the user never chose a password — it generates one and stores it in the
 login keychain (service `Raycast`, account `export_passphrase`), viewable at Raycast → Settings →
-Extensions → Export Settings & Data. **Tinycast never reads the keychain.** The user supplies the
+Extensions → Export Settings & Data. **ttyl never reads the keychain.** The user supplies the
 passphrase in the same field v2 uses.
 
-## v1 → Tinycast mapping
+## v1 → ttyl mapping
 
 v1 JSON is a set of `builtin_package_*` / `raycast_*` providers, with `raycast_version` at top level.
 
-| v1 path                                                                             | Tinycast                                                              |
+| v1 path                                                                             | ttyl                                                              |
 | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | `…raycastPreferences.preferencesAdvanced.popToRootTimeout`                          | `popToRootSeconds` (exact `PopToRootTimeout` match only)              |
 | `…preferencesAdvanced.emojiSkinTone`                                                | `emojiSkinTone` (`default` → none)                                    |
@@ -78,7 +78,7 @@ Notes that matter:
   and has to resolve it through `Bundle`.)
 - **Clipboard records are flat** (`text` / `filePath` / `category`), not v2's nested representations,
   and their timestamps carry no fractional seconds. Only `image` becomes an image clip: a `file`
-  record can be any document and Tinycast has no kind for that, so its label imports as text.
+  record can be any document and ttyl has no kind for that, so its label imports as text.
 - **v1 exports no launch-at-login preference and no global palette hotkey**, so neither is ever
   mapped. That is why `.launchAtLogin` is absent from `RaycastFormat.v1.supportedOptions`.
 - `builtin_package_navigation` and `builtin_package_snippets` are mapped defensively — no export with
@@ -88,7 +88,7 @@ Notes that matter:
 
 `RaycastFormat.swift` and `RaycastV1Decoder.swift` stay Foundation + CommonCrypto + Carbon so
 `Tests/raycast-test.swift` compiles them against the real sources. The decoder's job is _shape_ — it
-returns Raycast's own values in a plain `RaycastV1Payload`; turning those into Tinycast's domain types
+returns Raycast's own values in a plain `RaycastV1Payload`; turning those into ttyl's domain types
 (`PopToRootTimeout`, `EmojiSkinTone`, `HyperKeyPhysicalKey`, `KeyShortcut`) is `RaycastImportV1`'s job.
 That is the same pure-layer / platform-layer split `Features/WindowManagement/` uses.
 

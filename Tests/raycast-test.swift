@@ -2,7 +2,7 @@ import CommonCrypto
 import CryptoKit
 import Foundation
 
-// Format detection, the v1 AES-256-CBC decrypt and the JSON → RaycastV1Payload mapping. No real export is used: the crypto cases encrypt a synthetic gzip fixture in-process and the mapping cases hand `payload(_:)` hand-written JSON. Turning payload values into Tinycast's own types lives in `RaycastImportV1`, which needs AppKit and is covered by the app build.
+// Format detection, the v1 AES-256-CBC decrypt and the JSON → RaycastV1Payload mapping. No real export is used: the crypto cases encrypt a synthetic gzip fixture in-process and the mapping cases hand `payload(_:)` hand-written JSON. Turning payload values into ttyl's own types lives in `RaycastImportV1`, which needs AppKit and is covered by the app build.
 @main
 @MainActor
 enum RaycastTests {

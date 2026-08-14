@@ -1,13 +1,13 @@
-# Tinycast
+# ttyl
 
 A tiny, fully native macOS launcher — the essentials, without the bloat.
 
 <p align="center">
   <a href="https://discord.gg/v2Eeb4QQy3">
-    <img alt="Join the Tinycast Discord"
+    <img alt="Join the ttyl Discord"
          src="https://img.shields.io/badge/Discord-Join%20the%20community-5865F2?style=flat&logo=discord&logoColor=white"></a>
-  <a href="mailto:iabueammar@gmail.com?subject=Hiring%20enquiry">
-    <img alt="Hire me — iabueammar@gmail.com"
+  <a href="mailto:atpugvaraa@gmail.com?subject=Hiring%20enquiry">
+    <img alt="Hire me — atpugvaraa@gmail.com"
          src="https://img.shields.io/badge/Hire%20me-Let's%20talk-111111?style=flat&logo=gmail&logoColor=white"></a>
   <a href="LICENSE">
     <img alt="License: AGPL-3.0"
@@ -15,7 +15,7 @@ A tiny, fully native macOS launcher — the essentials, without the bloat.
 </p>
 
 <p align="center">
-  <img src="docs/screenshot.png" alt="Tinycast command palette" width="720">
+  <img src="docs/screenshot.png" alt="ttyl command palette" width="720">
 </p>
 
 Around **3 MB on disk** and **under 100 MB of RAM** — no Electron, no telemetry, no background
@@ -36,33 +36,33 @@ CPU churn. Just SwiftUI + AppKit with zero dependencies. It's fast because there
 ## Install
 
 ```sh
-brew trust --tap abue-ammar/tinycast   # required for third-party taps
-brew tap abue-ammar/tinycast
-brew install --cask tinycast          # stable
-brew install --cask tinycast@beta     # beta  (installs side-by-side)
-brew install --cask tinycast-sequoia  # stable channel  (macOS 15 Sequoia)
+brew trust --tap atpugvaraa/ttyl   # required for third-party taps
+brew tap atpugvaraa/ttyl
+brew install --cask ttyl          # stable
+brew install --cask ttyl@beta     # beta  (installs side-by-side)
+brew install --cask ttyl-sequoia  # stable channel  (macOS 15 Sequoia)
 ```
 
-Tinycast also runs on macOS 15 Sequoia — install the `tinycast-sequoia` cask above.
+ttyl also runs on macOS 15 Sequoia — install the `ttyl-sequoia` cask above.
 
-Each channel is a separate app (`Tinycast.app`, `Tinycast Beta.app`) with its own settings and
+Each channel is a separate app (`ttyl.app`, `ttyl Beta.app`) with its own settings and
 permissions, so you can run stable next to the beta.
 
-Tinycast is self-signed. Installing via Homebrew clears the macOS quarantine flag for you
+ttyl is self-signed. Installing via Homebrew clears the macOS quarantine flag for you
 automatically on every install and update, so there's nothing to run. (If you download the DMG
 directly from Releases instead, clear it once: `xattr -dr com.apple.quarantine
-"/Applications/Tinycast.app"`.)
+"/Applications/ttyl.app"`.)
 
 ## Permissions
 
-**Accessibility** — needed when Tinycast pastes or expands text into another app, and the only
+**Accessibility** — needed when ttyl pastes or expands text into another app, and the only
 permission snippet keyword expansion needs. You're prompted when you first use a feature that needs
 it; grant access in **System Settings → Privacy & Security → Accessibility**. Snippets ship
 disabled, and keystrokes are matched locally, never stored and never sent anywhere.
 
 ## Using it
 
-1. Open **Settings → General** and record a global shortcut to summon Tinycast.
+1. Open **Settings → General** and record a global shortcut to summon ttyl.
 2. Press it anywhere → the palette floats in. Type to filter, **↵** to launch.
 3. **Tab** switches between Apps and Clipboard; **↑/↓** move, **Esc** dismisses.
 4. **Settings → Shortcuts** — search an app or custom command and record a global shortcut.
@@ -88,6 +88,11 @@ in the **[pull request template](.github/PULL_REQUEST_TEMPLATE.md)**. Security i
 [SECURITY.md](SECURITY.md), not the issue tracker.
 
 Questions, ideas, or just want to follow along? **[Join the Discord](https://discord.gg/v2Eeb4QQy3)**.
+
+## Upstream
+
+ttyl is a fork of [Tinycast](https://github.com/abue-ammar/tinycast) by Abue Ammar, and tracks it for
+upstream fixes and features. The original copyright notice in [LICENSE](LICENSE) stands.
 
 ## License
 

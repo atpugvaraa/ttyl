@@ -8,7 +8,7 @@ export type Feature = {
   wide?: boolean;
 };
 
-// Everything Tinycast does, in plain language. Kept true to what the app
+// Everything ttyl does, in plain language. Kept true to what the app
 // actually ships — each maps to a real feature in the source.
 export const features: Feature[] = [
   {

@@ -47,7 +47,7 @@ The command text is deliberately not searchable. Only the user-facing name enter
   environment** flag is on
 - the user's home directory as the working directory
 - standard input and output connected to `/dev/null`
-- `TINYCAST=1` added to the inherited environment
+- `TTYL=1` added to the inherited environment
 - up to 8 KiB of standard error retained for a failure dialog
 
 No Terminal window or pseudo-terminal is created. `waitUntilExit` blocks for the whole life of the
@@ -64,7 +64,7 @@ command exits **127**. That is the single most common way a custom command fails
 It is per-command and off by default, because turning it on runs whatever the user's shell startup
 does — oh-my-zsh's auto-update (`git pull`, network, seconds), powerlevel10k's `gitstatusd`,
 `compinit` rewriting `~/.zcompdump`, or an `exec` that replaces the shell so the command never runs at
-all. `TINYCAST=1` exists so an rc file can skip those sections: `[[ -n $TINYCAST ]] && return`.
+all. `TTYL=1` exists so an rc file can skip those sections: `[[ -n $TTYL ]] && return`.
 
 Measured cost: ~10 ms for `-lc`, ~65 ms for `-ilc` against a real-world `~/.zshrc` (~11 ms against a
 minimal one — the interactive shell itself is ~2 ms, the rest is the user's own config).
@@ -72,8 +72,8 @@ minimal one — the interactive shell itself is ~2 ms, the rest is the user's ow
 Interactive prompts still cannot block. Standard input is `/dev/null`, so a `read` gets EOF and
 returns non-zero, and a launchd-launched app has no controlling terminal, so `/dev/tty` fails with
 `device not configured`. A dev build launched _from a terminal_ inherits that terminal's tty, so an rc
-file reading `/dev/tty` can hang there but not for real users. There is **no timeout** — Tinycast
-never kills a running command, and a command outlives Tinycast quitting.
+file reading `/dev/tty` can hang there but not for real users. There is **no timeout** — ttyl
+never kills a running command, and a command outlives ttyl quitting.
 
 Because standard error surfaces only on a non-zero exit and only its last 8 KiB, rc-file startup noise
 is dropped while the actual error survives.
@@ -85,14 +85,14 @@ so the gate lives there and neither path can bypass it. The palette hides before
 floating panel and would sit above it. The dialog shows the command text as well as its name; ↵ runs
 it and Escape cancels, with Cancel rendered on the left of the two buttons. It carries the `terminal`
 glyph the command's launcher row uses, and reads neutral rather than destructive — running a command the
-user wrote themselves wants a deliberate second tap, not a red alarm. The gate is Tinycast's own
+user wrote themselves wants a deliberate second tap, not a red alarm. The gate is ttyl's own
 dialog, not an `NSAlert` ([ui.md](../ui.md#dialogs--hud)): presentation is `async` with no nested run loop,
 and the presenter itself refuses a second dialog while one is up, so a held shortcut can't stack them.
 
 ### Reporting
 
-Tinycast dismisses an open palette before starting a custom command. A zero exit status is silent; a
-launch failure or non-zero status opens a Tinycast dialog with the bounded error detail. When the
+ttyl dismisses an open palette before starting a custom command. A zero exit status is silent; a
+launch failure or non-zero status opens a ttyl dialog with the bounded error detail. When the
 status is 127 and **Load shell environment** is off, the dialog adds a one-line hint and an **Open
 Settings…** button that lands on the Commands pane — the hint is gated on the status alone, not
 on grepping stderr, since 127 is equally a plain typo. The command string itself is never logged.

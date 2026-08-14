@@ -1,6 +1,6 @@
-# Tinycast website
+# ttyl website
 
-Marketing site for [Tinycast](../), built with React + Vite + Tailwind CSS.
+Marketing site for [ttyl](../), built with React + Vite + Tailwind CSS.
 
 ## Develop
 
@@ -21,7 +21,7 @@ npm run dev      # local dev server with HMR
 
 Pushes to `main` that touch `website/**` are built and published to GitHub Pages
 by [`.github/workflows/website.yml`](../.github/workflows/website.yml) —
-live at <https://abue-ammar.github.io/tinycast/>.
+live at <https://atpugvaraa.github.io/ttyl/>.
 
-The site is served from the `/tinycast/` subpath, set via `base` in
+The site is served from the `/ttyl/` subpath, set via `base` in
 [`vite.config.ts`](vite.config.ts).

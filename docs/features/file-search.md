@@ -13,12 +13,12 @@ feature is enabled in Settings.
   a broad filename.
 - **Everything under `Model/` stays Foundation-only and pure**, `FileSearchIgnoreList`'s `import Darwin`
   included. `file-search-test` compiles the shipped files together with the existing pure fuzzy scorer.
-- **Search is filename-only and on demand.** An empty query does no work and Tinycast creates no
+- **Search is filename-only and on demand.** An empty query does no work and ttyl creates no
   content index, history, query cache, watcher or search data.
 - **Hidden paths and application-bundle contents are structural, not patterns.** They are what keeps
   the feature permission-free, so no user setting can re-admit them. Everything else that is dropped
   comes from the ignore list.
-- **`~/Library` is never a scope Tinycast picks by itself.** A configured home root expands into its
+- **`~/Library` is never a scope ttyl picks by itself.** A configured home root expands into its
   visible children plus the two cloud-storage roots instead. A user who adds a folder under `~/Library`
   by hand gets what they asked for.
 - **The shipped ignore rules are compiled in and never persisted.** `fileSearchIgnorePatterns` stores
@@ -27,7 +27,7 @@ feature is enabled in Settings.
 - **File Search is off by default, and off means no entry point or Spotlight work.** A nonempty query
   on that screen is the first operation that searches, and the global shortcut no-ops while the
   feature switch is off.
-- **Tinycast asks for no file permission.** Hidden metadata items and application bundles are filtered,
+- **ttyl asks for no file permission.** Hidden metadata items and application bundles are filtered,
   and Spotlight or TCC omissions produce a thinner result set rather than a prompt for Full Disk Access.
 - **A superseded query never publishes.** The session cancels its pending task and checks cancellation
   after the synchronous Spotlight call, so a late result cannot replace the newer query's rows. Editing
@@ -89,7 +89,7 @@ revision check, then the same worker runs only the newest pending query. Leaving
 cancels and clears the session as well.
 
 `FileSearchService.search` emits a `FileSearchService.search` interval on the shared
-`com.tinycast.perf` signpost subsystem. `Tests/file-search-performance.swift` exercises the same service
+`aaravgupta.ttyl.perf` signpost subsystem. `Tests/file-search-performance.swift` exercises the same service
 against the current user's Spotlight index and reports first-run and repeated-query latency; it stays
 outside `run-tests.sh` because filesystem contents and Spotlight state are machine-dependent.
 
@@ -112,7 +112,7 @@ and invalidates in-flight decodes, so scrolling stays warm within one result set
 icons after File Search closes. Persistent launcher icons remain in their own cache.
 
 - Return calls `FileSearchCoordinator.open`, hides the palette without restoring focus, and uses the
-  asynchronous `NSWorkspace` configuration API. A failure goes through Tinycast's dialog controller.
+  asynchronous `NSWorkspace` configuration API. A failure goes through ttyl's dialog controller.
 - Command-Return reveals the item in Finder and dismisses the palette.
 - Copy Path writes the standardized path through `Paster`, leaves the palette open, and reports through
   the message HUD.
@@ -125,7 +125,7 @@ query says "No files found", and query creation or execution failure says
 
 Settings ▸ File Search owns the `fileSearchEnabled` switch, which is off when its preference is absent,
 along with the scope list, the ignore patterns and the Search Files command row. All of them are
-ordinary settings carried by Tinycast settings backups; importing them grants no permission or
+ordinary settings carried by ttyl settings backups; importing them grants no permission or
 background access.
 
 `AppCore` observes the switch and asks `FileSearchCoordinator` to project `CommandID.searchFiles` into

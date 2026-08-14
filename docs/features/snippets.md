@@ -26,12 +26,12 @@ Each app channel owns a separate library:
 ~/Library/Application Support/<bundle-id>/Snippets/
 ```
 
-Debug (`com.tinycast.app.dev`), beta, and stable therefore never share snippet files. The storage
+Debug (`aaravgupta.ttyl.dev`), beta, and stable therefore never share snippet files. The storage
 root and bundle identifier are injectable in the standalone harness so tests cannot touch a real
 library.
 
 A stored snippet's identity is the standardized path of its Markdown file. Changing `name` or other
-frontmatter keeps the same identity. Renaming a file outside Tinycast appears as deletion of the old
+frontmatter keeps the same identity. Renaming a file outside ttyl appears as deletion of the old
 record plus creation of a new one. Saving always updates the existing path; creating snippets with
 the same name uses distinct filename suffixes.
 
@@ -55,10 +55,10 @@ every change.
 ## Importing from Raycast
 
 The encrypted `.rayconfig` flow in **Settings → Backup** can import Raycast's built-in snippets as
-an independently selectable category. Tinycast reads `name`, `text`, and the optional `keyword` from
+an independently selectable category. ttyl reads `name`, `text`, and the optional `keyword` from
 the backup's `builtin_package_snippets.snippets` collection. Invalid entries are skipped; valid entries
 are added in source order without overwriting the existing library. Duplicate names receive the same
-filename suffixes as snippets created in Tinycast, and duplicate keywords are preserved.
+filename suffixes as snippets created in ttyl, and duplicate keywords are preserved.
 
 Imported snippets are enabled and launcher-visible, with their confirmation off. Importing
 never enables automatic keyword expansion. A failure writing the snippet files is reported in the
@@ -88,7 +88,7 @@ defaults to `true`; `show_confirmation` defaults to `false`.
 String values must use double quotes. The codec escapes and decodes `\\`, `\"`, `\n`, `\r`, and
 `\t`; unsupported escapes, unquoted strings, duplicate or unknown keys, non-exact delimiters, and
 booleans other than lowercase `true` or `false` are rejected. Keys are matched case-insensitively;
-there are no aliases, so a key Tinycast does not know names itself in the error.
+there are no aliases, so a key ttyl does not know names itself in the error.
 
 Everything after the closing delimiter's line terminator is the body. Leading and trailing blank
 lines, CR/LF choices, Unicode, and later lines containing `---` are preserved exactly when parsing.
@@ -133,7 +133,7 @@ automatic formatting the _result_ asks for. A snippet asks for none, so `raw` is
 quicklink expanding into a URL percent-encodes every value, and `raw` is how a template opts one out.
 `{cursor}` and snippet references are structural, so they take no modifiers.
 
-A token Tinycast cannot parse — an unknown name, an unknown modifier, a duplicated or unsupported
+A token ttyl cannot parse — an unknown name, an unknown modifier, a duplicated or unsupported
 parameter, an unterminated quote — is left in the text exactly as written rather than silently
 dropped. `{browser-tab}` and `{calculator}` are not supported: the first needs a browser extension,
 and the second has no defined input inside a snippet.
@@ -180,7 +180,7 @@ installs or repairs the tap when they become available, and tears it down after 
 disabling the setting. `stop()` is authoritative and clears the buffer. The buffer also resets on app
 or session changes, Secure Event Input, navigation and modifier shortcuts, and 15 seconds of
 inactivity. It is capped at 256 characters. Keywords are matched case-insensitively by longest suffix;
-duplicates resolve by file identity. Tinycast-tagged synthetic events are ignored.
+duplicates resolve by file identity. ttyl-tagged synthetic events are ignored.
 
 Immediately before deleting a matched keyword and before inserting its expansion, automatic delivery
 re-checks consent, both permissions, Secure Event Input, the captured target app, and cancellation
@@ -199,32 +199,32 @@ success/info feedback uses it too (see [launcher.md](launcher.md#system-actions)
 trailing glyph, after the message, carries the tint. Its capsule uses `Theme.frosted(in:)`, the same
 whitish-tinted glass as the rest of the app's floating controls (see [ui.md](../ui.md#liquid-glass)).
 
-After either launcher or keyword delivery is confirmed, Tinycast may show a brief non-activating,
+After either launcher or keyword delivery is confirmed, ttyl may show a brief non-activating,
 click-through overlay with the snippet name. The AppCore-owned controller replaces and restarts a
 visible HUD on repeated deliveries, follows the existing cursor-screen preference, and never prompts
-for permissions or activates Tinycast. Failed, cancelled, rejected, or prompt-cancelled expansions do
+for permissions or activates ttyl. Failed, cancelled, rejected, or prompt-cancelled expansions do
 not report completion and therefore cannot show it.
 
 ## Text delivery and pasteboard safety
 
-The preferred path is one atomic Accessibility replacement. Tinycast requires a focused element with
+The preferred path is one atomic Accessibility replacement. ttyl requires a focused element with
 readable text plus writable selected-range and selected-text attributes. For an automatic expansion it
 also verifies that the exact captured keyword is immediately before the cursor before replacing it.
 An Accessibility mismatch is rejected rather than guessed.
 
-Some editors grant Accessibility but do not expose writable text attributes. In that case Tinycast
+Some editors grant Accessibility but do not expose writable text attributes. In that case ttyl
 falls back to tagged keyboard events while keeping the same permission, consent, Secure Event Input,
 target-app and cancellation gates. The fallback deletes the keyword first, waits for deletion to
 settle, then inserts the expansion. Short single-line expansions of at most 100 characters use Unicode
 keyboard events.
 
 Longer or multiline fallback text uses a temporary paste only when the existing pasteboard's first
-item has plain text that can be restored without another pasteboard write. Tinycast snapshots every
+item has plain text that can be restored without another pasteboard write. ttyl snapshots every
 item, type and data payload, takes temporary ownership with the same item shape, and changes only the
 first plain-text payload. Restoration mutates that owned item back in place; it never clears the
 clipboard before a fallible restore. The pasteboard change count is checked before restoration, so a
 newer copy is never overwritten. Empty, image-first, unreadable or otherwise unsafe pasteboards use
-the Unicode-event fallback instead. The clipboard poller synchronizes to Tinycast's ownership changes
+the Unicode-event fallback instead. The clipboard poller synchronizes to ttyl's ownership changes
 so temporary or restored text is not added as new history.
 
 When Accessibility text state is readable, a long paste waits for evidence that the target changed.
@@ -234,7 +234,7 @@ that confirmation or delay and after pasteboard restoration. Delivery completion
 once only after the Accessibility replacement or event fallback (including requested cursor movement)
 finishes successfully. Disabling automatic expansion or
 terminating the app cancels pending delivery and deferred cursor movement; termination also completes
-any pasteboard restoration still owned by Tinycast.
+any pasteboard restoration still owned by ttyl.
 
 ## External edits and conflicts
 
@@ -248,7 +248,7 @@ for one channel share a serialized owner, and each mutation uses `NSFileCoordina
 revalidating the path and source revision immediately beside the atomic write or removal. Cooperative
 writers therefore produce a conflict instead of being overwritten. macOS path-based APIs cannot
 provide a true compare-and-swap against an uncooperative process that writes in the final interval
-between revalidation and mutation, so Tinycast does not claim that impossible guarantee.
+between revalidation and mutation, so ttyl does not claim that impossible guarantee.
 
 An editor open over a file that changed underneath it does not reconcile silently: the save is
 rejected with the conflict above, and reopening the snippet shows what is now on disk.

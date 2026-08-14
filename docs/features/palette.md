@@ -146,7 +146,7 @@ in the half-open interval `(minY, maxY]`: the topmost row is exactly `maxY`, whi
 while that same value is the `minY` of the display stacked above. `contains` would therefore hand a
 pointer parked at the top of one display to its neighbour. `NSMouseInRect` exists for precisely this.
 
-## The placeholder is Tinycast's, not the field's
+## The placeholder is ttyl's, not the field's
 
 The search field is a SwiftUI `TextField` with **no `prompt`**; `RootPaletteView` draws the
 placeholder itself as a leading-aligned background `Text`.
