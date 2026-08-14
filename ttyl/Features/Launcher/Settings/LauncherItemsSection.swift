@@ -68,6 +68,7 @@ private struct LauncherItemRow: View {
         SettingsRow(title: entry.name) {
             AppIconView(app: entry).frame(width: 18, height: 18)
         } trailing: {
+            AliasField(entry: entry)
             if let action = entry.hotKeyAction {
                 ShortcutRecorder(action: action)
             }
@@ -83,5 +84,28 @@ private struct LauncherItemRow: View {
             get: { visibility.isItemVisible(entry) },
             set: { visibility.setItemVisible($0, for: entry) }
         )
+    }
+}
+
+/// Edits stay local until commit: writing per keystroke would re-rank the list under the cursor.
+private struct AliasField: View {
+    let entry: AppEntry
+    @Environment(AliasStore.self) private var aliases
+    @State private var text = ""
+    @FocusState private var focused: Bool
+
+    var body: some View {
+        TextField("Alias", text: $text)
+            .textFieldStyle(.roundedBorder)
+            .frame(width: 110)
+            .focused($focused)
+            .onSubmit { aliases.setAlias(text, for: entry) }
+            .onChange(of: focused) { _, nowFocused in
+                if !nowFocused { aliases.setAlias(text, for: entry) }
+            }
+            .onChange(of: aliases.alias(for: entry), initial: true) { _, stored in
+                if !focused { text = stored }
+            }
+            .accessibilityLabel("Alias for \(entry.name)")
     }
 }

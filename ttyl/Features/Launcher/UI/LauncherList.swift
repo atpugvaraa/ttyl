@@ -124,6 +124,7 @@ private struct AppRow: View {
     let running: Bool
     /// Observed so a hotkey set/cleared in Settings re-renders the row's keycaps immediately.
     @Environment(HotKeyManager.self) private var hotKeys
+    @Environment(AliasStore.self) private var aliases
     @State private var hovered = false
 
     /// Selection wins over hover when a row is both; otherwise hover shows its fainter layer.
@@ -131,6 +132,12 @@ private struct AppRow: View {
         if selected { return Theme.Colors.selection }
         if hovered { return Theme.Colors.rowHover }
         return .clear
+    }
+
+    /// The user's own name for this entry, or `nil` when they haven't given it one.
+    private var userAlias: String? {
+        let alias = aliases.alias(for: app)
+        return alias.isEmpty ? nil : alias
     }
 
     /// Keycaps for this entry's hotkey, or `nil` if none is bound.
@@ -154,6 +161,9 @@ private struct AppRow: View {
             Text(app.name)
                 .font(Theme.Typography.rowTitle)
                 .lineLimit(1)
+            if let alias = userAlias {
+                KeyCapChip(text: alias, style: .outline)
+            }
             if let caps = shortcutCaps {
                 HStack(spacing: Theme.Spacing.xxs) {
                     ForEach(Array(caps.enumerated()), id: \.offset) { _, cap in

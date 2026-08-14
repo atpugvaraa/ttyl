@@ -57,7 +57,7 @@ strongest one becomes the entry's base relevance:
 
 | Band | Field                                   | Match strength                                    |
 | ---- | --------------------------------------- | ------------------------------------------------- |
-| 5    | display name (plus a snippet's keyword) | literal — exact / prefix / word-start / substring |
+| 5    | display name (plus match aliases)       | literal — exact / prefix / word-start / substring |
 | 4    | Spotlight alternate names               | literal                                           |
 | 3    | display name                            | subsequence                                       |
 | 2    | Spotlight alternate names               | subsequence                                       |
@@ -87,6 +87,19 @@ query (`cop` ⊂ `com.apple.Photos`), which would change _which_ apps appear rat
 order. For the same reason a bundle id is matched with its leading component stripped
 (`apple.Photos`, not `com.apple.Photos`): `com` alone prefixes almost every installed app. The full id
 still matches exactly, so a pasted identifier resolves.
+
+### User aliases
+
+`AliasStore` holds one user-chosen name per entry, keyed on `AppEntry.preferenceKey` — the same key
+`VisibilityStore`, `FavoritesStore` and `LauncherRankingStore` use — so every kind can have one, not
+just apps. `AppIndex.publishEntries()` appends it to `matchAliases`, which is what puts it in the
+display-name band: an alias matches *as strongly as the real name*, with no additive boost. A boost
+would be the wrong tool anyway, since `maximumBoost` is deliberately two orders of magnitude below a
+band stride.
+
+Edit one in Settings, in the alias field of any launcher pane's item row; `LauncherList` shows it as
+a chip beside the name. Aliases ride a settings backup under `launcherAliases`: they name entries,
+they grant nothing.
 
 ### Alternate names
 

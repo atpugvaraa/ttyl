@@ -63,7 +63,7 @@ struct AppEntry: Identifiable, Hashable, Sendable {
     let url: URL
     let bundleID: String?
     let kind: Kind
-    /// Extra strings matching as strongly as the name; empty for every kind but snippets.
+    /// Extra strings matching as strongly as the name: a snippet's keyword, the user's alias.
     var matchAliases: [String] = []
     /// Per-item symbol, for the one kind whose glyph is the user's choice. Nil elsewhere.
     var symbolName: String?
@@ -186,6 +186,7 @@ final class AppIndex {
     private var fileSearchCommandVisible = false
     private var alternateNameCache = SpotlightNames.Cache()
     private var paneCache: SettingsPaneScanner.Cache?
+    private var aliases: [String: String] = [:]
     private var isRefreshing = false
     /// Set when a refresh lands mid-scan, so a scope edit is never silently dropped.
     private var refreshPending = false
@@ -356,14 +357,30 @@ final class AppIndex {
         }
     }
 
+    /// Replaces the alias map; re-publishing decorates every slice and invalidates both memos.
+    func setAliases(_ aliases: [String: String]) {
+        guard aliases != self.aliases else { return }
+        self.aliases = aliases
+        publishEntries()
+    }
+
     private func publishEntries() {
         // Each slice arrives in its own display order; the slice order is the section order.
         let updated =
-            discoveredEntries + quicklinkEntries + snippetEntries + Self.systemActionEntries
-            + windowCommandEntries + customCommandEntries + commandEntries
+            (discoveredEntries + quicklinkEntries + snippetEntries + Self.systemActionEntries
+            + windowCommandEntries + customCommandEntries + commandEntries)
+            .map(aliased)
         guard updated != apps else { return }
         apps = updated
         entriesRevision &+= 1
+    }
+
+    /// Appended, not assigned: a snippet's keyword is a match alias the user's name joins.
+    private func aliased(_ entry: AppEntry) -> AppEntry {
+        guard let alias = aliases[entry.preferenceKey] else { return entry }
+        var decorated = entry
+        decorated.matchAliases.append(alias)
+        return decorated
     }
 
     private static func projectedCommandEntries(

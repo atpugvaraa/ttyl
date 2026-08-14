@@ -22,6 +22,7 @@ final class AppCore {
     let settings: AppSettings
     let favorites = FavoritesStore()
     let visibility = VisibilityStore()
+    let aliases = AliasStore()
     let calcHistory = CalculatorHistoryStore()
     let currencyRates = CurrencyRateStore()
     let emojiIndex = EmojiIndex()
@@ -125,6 +126,8 @@ final class AppCore {
             clipboardManager.start()
 
             appIndex.start(settings: settings)
+            aliases.onChange = { [weak self] in self?.appIndex.setAliases($0) }
+            appIndex.setAliases(aliases.aliases)
             fileSearchCoordinator.applyEnabled()
             fileSearchCoordinator.applyPolicy()
             customCommands.onChange = { [weak self] _ in

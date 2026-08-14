@@ -52,6 +52,7 @@
 		28EFE24C56F4352FD2FEDE85 /* UninstallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635C0C4AF86DC4C86CFA95E7 /* UninstallCoordinator.swift */; };
 		2ADE96CE8205997A95ED944C /* FileSearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2700E4D51CC09051AD1596 /* FileSearchQuery.swift */; };
 		2C84C62F82F223D7AB23EF8A /* SnippetExpansionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11E8BD5CD2D7D56BEFFDCE4 /* SnippetExpansionCoordinator.swift */; };
+		2E8B71944E38938BBC5039A4 /* AliasStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431CF99A762DD2959518A4F2 /* AliasStore.swift */; };
 		2EB226CD2D9F2CC301A661CB /* RaycastImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64980B94C0BB2A502B04CF45 /* RaycastImport.swift */; };
 		2F1EA23428C9939714A5CDF7 /* WindowMover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BEC9E9272245A017A3FDD /* WindowMover.swift */; };
 		2F8641EF9B32B56B0E81EB94 /* AppPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74C1EE42B1F809EBE0A933D /* AppPaths.swift */; };
@@ -275,6 +276,7 @@
 		40899AADDE7BA2249DD76686 /* PaletteRowIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteRowIndex.swift; sourceTree = "<group>"; };
 		40A324FA93C865F6A11484A7 /* EmojiScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiScreen.swift; sourceTree = "<group>"; };
 		4226F77A2134B47A30EA3310 /* SpotlightNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotlightNames.swift; sourceTree = "<group>"; };
+		431CF99A762DD2959518A4F2 /* AliasStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasStore.swift; sourceTree = "<group>"; };
 		438BED31280D657A4B4C7AF3 /* QuicklinkLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuicklinkLauncher.swift; sourceTree = "<group>"; };
 		451B925D88FA88227840373B /* SystemActionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemActionCoordinator.swift; sourceTree = "<group>"; };
 		4665737A2C5440B8ABEC4C8D /* ShortcutRecorderPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutRecorderPopover.swift; sourceTree = "<group>"; };
@@ -633,6 +635,7 @@
 		3D21A4984C4CF1F553C9B97E /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				431CF99A762DD2959518A4F2 /* AliasStore.swift */,
 				4E32B8B8620462889A151DA1 /* AppIndex.swift */,
 				1E92CB5E3474DD5AE307658E /* AppLauncher.swift */,
 				E4BDBF706ACF9A7ABC029CD9 /* FavoritesStore.swift */,
@@ -1363,6 +1366,7 @@
 			files = (
 				FFD563A74DDC9BE3C3111169 /* AboutView.swift in Sources */,
 				8619C56298F37E14021C8A09 /* ActivationPolicy.swift in Sources */,
+				2E8B71944E38938BBC5039A4 /* AliasStore.swift in Sources */,
 				1507E49BC843513DEB0116FA /* AppActionsMenu.swift in Sources */,
 				BD8454F88A4D9BF3A8D8F786 /* AppCore.swift in Sources */,
 				22A3757C0305EBCA5AAB2C02 /* AppDelegate.swift in Sources */,

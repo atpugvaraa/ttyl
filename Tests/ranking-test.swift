@@ -138,6 +138,26 @@ struct RankingTest {
             "the observed boost cap stays under a band stride",
             maxBoost < SearchRelevance.bandStride - FuzzyMatch.maximumScore)
 
+        // A user alias rides in `names`, which is what makes it match as strongly as the name.
+        // AppIndex appends it there rather than adding a boost; these pin that it needs no boost.
+        let userAlias = SearchFields(names: ["Unrelated", "Codex"])
+        check(
+            "a user alias scores exactly as the display name would",
+            relevance(userAlias, "codex") == relevance(SearchFields(names: ["Codex"]), "codex"))
+        check(
+            "a user alias outranks a Spotlight alternate name",
+            relevance(userAlias, "codex") > relevance(alias, "codex"))
+        check(
+            "a user alias outranks a bundle-id hit",
+            relevance(userAlias, "codex") > relevance(identifier, "codex"))
+        check(
+            "a saturated boost cannot lift an alternate-name hit over a user alias",
+            relevance(alias, "codex") + maxBoost < relevance(userAlias, "codex"))
+        check(
+            "an unaliased entry still loses on a query only the alias answers",
+            SearchRelevance.score(query: "codex", fields: SearchFields(names: ["Unrelated"]))
+                == nil)
+
         print(failures == 0 ? "\nALL PASSED" : "\n\(failures) FAILED")
         exit(failures == 0 ? 0 : 1)
     }
